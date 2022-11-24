@@ -14,7 +14,7 @@ public final class KeyRepeatEvent extends KeyEvent {
      * @param scanCode The system-specific scancode of the key.
      * @param mods     Bit field describing which modifier keys were held down.
      */
-    public KeyRepeatEvent(int key, int scanCode, int mods) {
+    public KeyRepeatEvent(final int key, final int scanCode, final int mods) {
         super(key, scanCode, GLFW.GLFW_REPEAT, mods);
     }
 }

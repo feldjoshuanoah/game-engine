@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 /**
  * A manager that handles the events and listeners.
  */
-public class EventManager {
+public final class EventManager {
 
     /**
      * The logger for the event manager.

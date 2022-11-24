@@ -14,7 +14,7 @@ public final class KeyPressEvent extends KeyEvent {
      * @param scanCode The system-specific scancode of the key.
      * @param mods     Bit field describing which modifier keys were held down.
      */
-    public KeyPressEvent(int key, int scanCode, int mods) {
+    public KeyPressEvent(final int key, final int scanCode, final int mods) {
         super(key, scanCode, GLFW.GLFW_PRESS, mods);
     }
 }
