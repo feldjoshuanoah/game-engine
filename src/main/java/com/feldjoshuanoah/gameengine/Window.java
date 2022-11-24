@@ -1,5 +1,6 @@
 package com.feldjoshuanoah.gameengine;
 
+import com.feldjoshuanoah.gameengine.event.CallbackEventAdapter;
 import java.nio.IntBuffer;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -53,6 +54,7 @@ public class Window {
             throw new IllegalStateException("Failed to create the GLFW window");
         }
         GLFW.glfwMakeContextCurrent(handle);
+        GLFW.glfwSetKeyCallback(handle, CallbackEventAdapter::keyCallback);
     }
 
     /**
