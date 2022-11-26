@@ -2,9 +2,8 @@ package com.feldjoshuanoah.gameengine;
 
 import com.feldjoshuanoah.gameengine.event.CallbackEventAdapter;
 import java.nio.IntBuffer;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.system.MemoryUtil;
@@ -13,6 +12,11 @@ import org.lwjgl.system.MemoryUtil;
  * A window.
  */
 public class Window {
+
+    /**
+     * A list of all created windows which haven't been destroyed yet.
+     */
+    private static final List<Window> WINDOWS = new ArrayList<>();
 
     /**
      * A list of window hints. This is used during the creation of the window. Initially, all the
@@ -32,6 +36,18 @@ public class Window {
     public Window() {
         hints = new HashMap<>();
         Arrays.stream(WindowHint.values()).forEach(hint -> hints.put(hint, hint.getDefaultValue()));
+        WINDOWS.add(this);
+    }
+
+    /**
+     * Returns the {@code Window} instance with the given handle. If there exists no such instance
+     * this method will return {@code null}.
+     *
+     * @param  handle The handle of the desired window.
+     * @return        The associated {@code Window} instance or {@code null}.
+     */
+    public static Window getWindow(final long handle) {
+        return WINDOWS.stream().filter(window -> window.handle == handle).findFirst().orElse(null);
     }
 
     /**

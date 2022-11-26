@@ -1,9 +1,6 @@
 package com.feldjoshuanoah.gameengine.event;
 
-import com.feldjoshuanoah.gameengine.event.keyboard.KeyPressEvent;
-import com.feldjoshuanoah.gameengine.event.keyboard.KeyReleaseEvent;
-import com.feldjoshuanoah.gameengine.event.keyboard.KeyRepeatEvent;
-import org.lwjgl.glfw.GLFW;
+import com.feldjoshuanoah.gameengine.event.input.KeyEvent;
 
 /**
  * An adapter to attach the event handling system to GLFW.
@@ -32,10 +29,6 @@ public final class CallbackEventAdapter {
      */
     public static void keyCallback(final long window, final int key, final int scanCode,
             final int action, final int mods) {
-        switch (action) {
-            case GLFW.GLFW_RELEASE -> EVENT_MANAGER.fire(new KeyReleaseEvent(key, scanCode, mods));
-            case GLFW.GLFW_PRESS -> EVENT_MANAGER.fire(new KeyPressEvent(key, scanCode, mods));
-            case GLFW.GLFW_REPEAT -> EVENT_MANAGER.fire(new KeyRepeatEvent(key, scanCode, mods));
-        }
+        EVENT_MANAGER.fire(new KeyEvent(window, key, scanCode, action, mods));
     }
 }

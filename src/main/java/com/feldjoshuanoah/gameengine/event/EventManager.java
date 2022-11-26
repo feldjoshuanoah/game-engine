@@ -33,7 +33,7 @@ public final class EventManager {
      *
      * @param event The event to fire.
      */
-    public void fire(final Event event) {
+    public void fire(final AbstractEvent event) {
         listeners.forEach(listener -> listener.getHandlers().stream().filter(
                 handler -> handler.getParameterTypes()[0].isAssignableFrom(event.getClass()))
                 .forEach(handler -> {
