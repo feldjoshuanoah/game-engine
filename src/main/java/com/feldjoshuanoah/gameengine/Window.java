@@ -71,6 +71,10 @@ public class Window {
         }
         GLFW.glfwMakeContextCurrent(handle);
         GLFW.glfwSetKeyCallback(handle, CallbackEventAdapter::keyCallback);
+        GLFW.glfwSetMouseButtonCallback(handle, CallbackEventAdapter::mouseButtonCallback);
+        GLFW.glfwSetCursorPosCallback(handle, CallbackEventAdapter::cursorPositionCallback);
+        GLFW.glfwSetCursorEnterCallback(handle, CallbackEventAdapter::cursorEnterCallback);
+        GLFW.glfwSetScrollCallback(handle, CallbackEventAdapter::scrollCallback);
     }
 
     /**
