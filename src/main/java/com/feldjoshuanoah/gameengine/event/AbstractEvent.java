@@ -13,7 +13,7 @@ public abstract class AbstractEvent {
     private final Window window;
 
     /**
-     * Creates a new {@code Event} instance.
+     * Creates a new {@code AbstractEvent} instance.
      *
      * @param window The window that received the event.
      */
