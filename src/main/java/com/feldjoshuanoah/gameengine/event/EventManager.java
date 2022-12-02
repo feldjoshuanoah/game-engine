@@ -47,7 +47,7 @@ public final class EventManager {
     /**
      * Fires an event.
      *
-     * @param event Th event to fire.
+     * @param event The event to fire.
      */
     public void fire(final AbstractEvent event) {
         fire(event, NullEntity.getInstance());
