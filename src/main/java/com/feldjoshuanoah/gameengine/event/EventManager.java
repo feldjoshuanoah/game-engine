@@ -86,11 +86,15 @@ public final class EventManager {
         sortHandlers();
     }
 
+    /**
+     * Sorts the handlers.
+     */
     private void sortHandlers() {
         final TopologicalSorter<RegisteredEventHandler> sorter = new TopologicalSorter<>();
         sorter.addVertices(handlers);
         handlers.forEach(handler -> {
-            handler.getBefore().forEach(before -> sorter.addEdge(handler, handlersLookup.get(before)));
+            handler.getBefore().forEach(before -> sorter.addEdge(handler, handlersLookup
+                    .get(before)));
             handler.getAfter().forEach(after -> sorter.addEdge(handlersLookup.get(after), handler));
         });
         handlers.clear();

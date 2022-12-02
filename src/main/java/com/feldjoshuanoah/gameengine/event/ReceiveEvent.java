@@ -14,5 +14,10 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ReceiveEvent {
 
+    /**
+     * Returns the components that the target entity of the event must have.
+     *
+     * @return The components that the target entity of the event must have.
+     */
     Class<? extends AbstractComponent>[] components() default {};
 }
