@@ -60,18 +60,23 @@ public final class EventManager {
      * @param entity The target entity.
      */
     public void fire(final AbstractEvent event, final Entity entity) {
-        handlers.forEach(handler -> handler.getReceivers().stream().filter(
-                receiver -> receiver.getParameterTypes()[0].isAssignableFrom(event.getClass())
-                        && Arrays.stream((receiver.getAnnotation(ReceiveEvent.class)).components())
-                        .allMatch(entity::hasComponent)).forEach(receiver -> {
-            try {
-                receiver.invoke(handler.getHandler(), event, entity);
-            } catch (final IllegalAccessException | InvocationTargetException exception) {
-                if (LOGGER.isLoggable(Level.SEVERE)) {
-                    LOGGER.log(Level.SEVERE, "Failed to fire an event.", exception);
+        for (final RegisteredEventHandler handler : handlers) {
+            for (final Method receiver : handler.getReceivers().stream().filter(receiver ->
+                    receiver.getParameterTypes()[0].isAssignableFrom(event.getClass())
+                            && Arrays.stream(receiver.getAnnotation(ReceiveEvent.class)
+                            .components()).allMatch(entity::hasComponent)).toList()) {
+                try {
+                    if (receiver.invoke(handler.getHandler(), event, entity)
+                            .equals(EventResult.BREAK)) {
+                        return;
+                    }
+                } catch (final IllegalAccessException | InvocationTargetException exception) {
+                    if (LOGGER.isLoggable(Level.SEVERE)) {
+                        LOGGER.log(Level.SEVERE, "Failed to fire an event.", exception);
+                    }
                 }
             }
-        }));
+        }
     }
 
     /**
