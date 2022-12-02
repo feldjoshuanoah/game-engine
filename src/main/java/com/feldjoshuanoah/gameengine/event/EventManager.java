@@ -2,12 +2,17 @@ package com.feldjoshuanoah.gameengine.event;
 
 import com.feldjoshuanoah.gameengine.entity.Entity;
 import com.feldjoshuanoah.gameengine.entity.NullEntity;
+import com.feldjoshuanoah.gameengine.util.TopologicalSorter;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,10 +32,16 @@ public final class EventManager {
     private final List<RegisteredEventHandler> handlers;
 
     /**
+     * A lookup table for the registered handlers.
+     */
+    private final Map<Class<? extends EventHandler>, RegisteredEventHandler> handlersLookup;
+
+    /**
      * Creates a new {@code EventManager} instance.
      */
     private EventManager() {
         handlers = Lists.newArrayList();
+        handlersLookup = Maps.newHashMap();
     }
 
     /**
@@ -69,7 +80,21 @@ public final class EventManager {
      * @param handler The handler to register.
      */
     public void register(final EventHandler handler) {
-        handlers.add(new RegisteredEventHandler(handler));
+        final RegisteredEventHandler registered = new RegisteredEventHandler(handler);
+        handlers.add(registered);
+        handlersLookup.put(handler.getClass(), registered);
+        sortHandlers();
+    }
+
+    private void sortHandlers() {
+        final TopologicalSorter<RegisteredEventHandler> sorter = new TopologicalSorter<>();
+        sorter.addVertices(handlers);
+        handlers.forEach(handler -> {
+            handler.getBefore().forEach(before -> sorter.addEdge(handler, handlersLookup.get(before)));
+            handler.getAfter().forEach(after -> sorter.addEdge(handlersLookup.get(after), handler));
+        });
+        handlers.clear();
+        handlers.addAll(sorter.sort());
     }
 
     /**
