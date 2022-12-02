@@ -1,6 +1,8 @@
 package com.feldjoshuanoah.gameengine.entity;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -8,7 +10,7 @@ import java.util.Optional;
 /**
  * An entity.
  */
-public final class Entity {
+public class Entity {
 
     /**
      * The components.
@@ -19,7 +21,7 @@ public final class Entity {
      * Creates a new {@code Entity} instance.
      */
     public Entity() {
-        components = new ArrayList<>();
+        components = Lists.newArrayList();
     }
 
     /**
@@ -54,7 +56,7 @@ public final class Entity {
      */
     public void addComponent(final AbstractComponent component) {
         Preconditions.checkArgument(component != null);
-        if (components.stream().noneMatch(c -> c.getClass() == component.getClass())) {
+        if (!hasComponent(component.getClass())) {
             components.add(component);
         }
     }
