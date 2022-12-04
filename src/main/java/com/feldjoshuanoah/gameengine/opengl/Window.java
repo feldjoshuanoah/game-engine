@@ -1,4 +1,4 @@
-package com.feldjoshuanoah.gameengine;
+package com.feldjoshuanoah.gameengine.opengl;
 
 import com.feldjoshuanoah.gameengine.event.CallbackEventAdapter;
 import java.nio.IntBuffer;
@@ -11,7 +11,7 @@ import org.lwjgl.system.MemoryUtil;
 /**
  * A window.
  */
-public class Window {
+public final class Window {
 
     /**
      * A list of all created windows which haven't been destroyed yet.
@@ -396,5 +396,15 @@ public class Window {
      */
     public void setShouldClose(final boolean shouldClose) {
         GLFW.glfwSetWindowShouldClose(handle, shouldClose);
+    }
+
+    /**
+     * Returns the handle. If an error occurred during the creation of the window, this will return
+     * {@link MemoryUtil#NULL}.
+     *
+     * @return The handle.
+     */
+    public long getHandle() {
+        return handle;
     }
 }

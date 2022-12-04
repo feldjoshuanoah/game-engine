@@ -1,9 +1,10 @@
-package com.feldjoshuanoah.gameengine;
+package com.feldjoshuanoah.gameengine.opengl;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.Arrays;
 import java.util.Objects;
+
 import org.lwjgl.BufferUtils;
 import org.lwjgl.PointerBuffer;
 import org.lwjgl.glfw.GLFW;
@@ -14,7 +15,7 @@ import org.lwjgl.glfw.GLFWVidMode.Buffer;
 /**
  * A monitor.
  */
-public class Monitor {
+public final class Monitor {
 
     /**
      * The handle.
@@ -26,7 +27,7 @@ public class Monitor {
      *
      * @param handle The desired monitor handle.
      */
-    public Monitor(final long handle) {
+    private Monitor(final long handle) {
         this.handle = handle;
     }
 

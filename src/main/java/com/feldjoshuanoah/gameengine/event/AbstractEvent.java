@@ -1,6 +1,6 @@
 package com.feldjoshuanoah.gameengine.event;
 
-import com.feldjoshuanoah.gameengine.Window;
+import com.feldjoshuanoah.gameengine.opengl.Window;
 
 /**
  * An event.
