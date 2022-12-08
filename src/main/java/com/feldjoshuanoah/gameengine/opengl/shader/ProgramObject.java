@@ -1,5 +1,9 @@
 package com.feldjoshuanoah.gameengine.opengl.shader;
 
+import com.feldjoshuanoah.gameengine.math.matrix.Matrix2f;
+import com.feldjoshuanoah.gameengine.math.matrix.Matrix3f;
+import com.feldjoshuanoah.gameengine.math.matrix.Matrix4f;
+import com.feldjoshuanoah.gameengine.math.vector.*;
 import com.feldjoshuanoah.gameengine.opengl.GLSLObject;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
@@ -19,7 +23,6 @@ import org.lwjgl.opengl.GL30;
  * deleted when it is no longer part of current rendering state for any context.
  */
 public class ProgramObject implements GLSLObject {
-
 
     /**
      * The program object name.
@@ -341,6 +344,561 @@ public class ProgramObject implements GLSLObject {
      */
     public void uniform1ui(final String name, final int value) {
         GL30.glUniform1ui(getUniformLocation(name), value);
+    }
+
+    /**
+     * Modifies the value of a uniform variable or a uniform variable array. The name of the
+     * uniform variable to be modified is specified by the given name. It operates on the program
+     * object that was made part of the current state by calling {@link #use()}.
+     *
+     * <p>The commands {@code uniform{1|2|3|4}{f|i|ui}} are used to change the value of the uniform
+     * variable specified by the given name using the values passed as arguments. The number
+     * specified in the command should match the number of components in the data type of the
+     * specified uniform variable (e.g., {@code 1} for {@code float}, {@code int},
+     * {@code unsigned int}, {@code bool}; {@code 2} for {@code vec2}, {@code ivec2}, {@code uvec2},
+     * {@code bvec2}, etc.). The suffix {@code f} indicates that floating-point values are being
+     * passed; the suffix {@code i} indicates that integer values are being passed; the suffix
+     * {@code ui} indicates that unsigned integer values are being passed, and this type should also
+     * match the data type of the specified uniform variable. The {@code i} variants of this
+     * function should be used to provide values for uniform variables defined as {@code int},
+     * {@code ivec2}, {@code ivec3}, {@code ivec4}, or arrays of these. The {@code ui} variants of
+     * this function should be used to provide values for uniform variables defined as
+     * {@code unsigned int}, {@code uvec2}, {@code uvec3}, {@code uvec4}, or arrays of these. The
+     * {@code f} variants should be used to provide values for uniform variables of type
+     * {@code float}, {@code vec2}, {@code vec3}, {@code vec4}, or arrays of these. Either the
+     * {@code i}, {@code ui}, or {@code f} variants may be used to provide values for uniform
+     * variables of type {@code bool}, {@code bvec2}, {@code bvec3}, {@code bvec4}, or arrays of
+     * these. The uniform variable will be set to {@code false} if the input variable is {@code 0}
+     * or {@code 0.0f}, and it will be set to {@code true} otherwise.
+     *
+     * <p>All active uniform variables defined in a program object are initialized to {@code 0} when
+     * the program object is linked successfully. They retain the values assigned to them by a call
+     * to {@code uniform} until the next successful link operation occurs on the program object,
+     * when they are once again initialized to {@code 0}.
+     *
+     * <p>The commands {@code uniformMatrix{2|3|4|2x3|3x2|2x4|4x2|3x4|4x3}f} are used to modify a
+     * matrix or an array of matrices. The numbers in the command name are interpreted as the
+     * dimensionality of the matrix. The number {@code 2} indicates a 2x2 matrix (i.e., 4 values),
+     * the number {@code 3} indicates a 3x3 matrix (i.e., 9 values), and the number {@code 4}
+     * indicates a 4x4 matrix (i.e., 16 values). Non-square matrix dimensionality is explicit, with
+     * the first number representing the number of columns and the second number representing the
+     * number of rows. For example, {@code 2x4} indicates a 2x4 matrix with 2 columns and 4 rows
+     * (i.e., 8 values).
+     *
+     * @param name  The name of the uniform variable to modify.
+     * @param value The desired value to use for the specified uniform variable.
+     */
+    public void uniform2f(final String name, final Vector2f value) {
+        GL20.glUniform2f(getUniformLocation(name), value.getX(), value.getY());
+    }
+
+    /**
+     * Modifies the value of a uniform variable or a uniform variable array. The name of the
+     * uniform variable to be modified is specified by the given name. It operates on the program
+     * object that was made part of the current state by calling {@link #use()}.
+     *
+     * <p>The commands {@code uniform{1|2|3|4}{f|i|ui}} are used to change the value of the uniform
+     * variable specified by the given name using the values passed as arguments. The number
+     * specified in the command should match the number of components in the data type of the
+     * specified uniform variable (e.g., {@code 1} for {@code float}, {@code int},
+     * {@code unsigned int}, {@code bool}; {@code 2} for {@code vec2}, {@code ivec2}, {@code uvec2},
+     * {@code bvec2}, etc.). The suffix {@code f} indicates that floating-point values are being
+     * passed; the suffix {@code i} indicates that integer values are being passed; the suffix
+     * {@code ui} indicates that unsigned integer values are being passed, and this type should also
+     * match the data type of the specified uniform variable. The {@code i} variants of this
+     * function should be used to provide values for uniform variables defined as {@code int},
+     * {@code ivec2}, {@code ivec3}, {@code ivec4}, or arrays of these. The {@code ui} variants of
+     * this function should be used to provide values for uniform variables defined as
+     * {@code unsigned int}, {@code uvec2}, {@code uvec3}, {@code uvec4}, or arrays of these. The
+     * {@code f} variants should be used to provide values for uniform variables of type
+     * {@code float}, {@code vec2}, {@code vec3}, {@code vec4}, or arrays of these. Either the
+     * {@code i}, {@code ui}, or {@code f} variants may be used to provide values for uniform
+     * variables of type {@code bool}, {@code bvec2}, {@code bvec3}, {@code bvec4}, or arrays of
+     * these. The uniform variable will be set to {@code false} if the input variable is {@code 0}
+     * or {@code 0.0f}, and it will be set to {@code true} otherwise.
+     *
+     * <p>All active uniform variables defined in a program object are initialized to {@code 0} when
+     * the program object is linked successfully. They retain the values assigned to them by a call
+     * to {@code uniform} until the next successful link operation occurs on the program object,
+     * when they are once again initialized to {@code 0}.
+     *
+     * <p>The commands {@code uniformMatrix{2|3|4|2x3|3x2|2x4|4x2|3x4|4x3}f} are used to modify a
+     * matrix or an array of matrices. The numbers in the command name are interpreted as the
+     * dimensionality of the matrix. The number {@code 2} indicates a 2x2 matrix (i.e., 4 values),
+     * the number {@code 3} indicates a 3x3 matrix (i.e., 9 values), and the number {@code 4}
+     * indicates a 4x4 matrix (i.e., 16 values). Non-square matrix dimensionality is explicit, with
+     * the first number representing the number of columns and the second number representing the
+     * number of rows. For example, {@code 2x4} indicates a 2x4 matrix with 2 columns and 4 rows
+     * (i.e., 8 values).
+     *
+     * @param name  The name of the uniform variable to modify.
+     * @param value The desired value to use for the specified uniform variable.
+     */
+    public void uniform2i(final String name, final Vector2i value) {
+        GL20.glUniform2i(getUniformLocation(name), value.getX(), value.getY());
+    }
+
+    /**
+     * Modifies the value of a uniform variable or a uniform variable array. The name of the
+     * uniform variable to be modified is specified by the given name. It operates on the program
+     * object that was made part of the current state by calling {@link #use()}.
+     *
+     * <p>The commands {@code uniform{1|2|3|4}{f|i|ui}} are used to change the value of the uniform
+     * variable specified by the given name using the values passed as arguments. The number
+     * specified in the command should match the number of components in the data type of the
+     * specified uniform variable (e.g., {@code 1} for {@code float}, {@code int},
+     * {@code unsigned int}, {@code bool}; {@code 2} for {@code vec2}, {@code ivec2}, {@code uvec2},
+     * {@code bvec2}, etc.). The suffix {@code f} indicates that floating-point values are being
+     * passed; the suffix {@code i} indicates that integer values are being passed; the suffix
+     * {@code ui} indicates that unsigned integer values are being passed, and this type should also
+     * match the data type of the specified uniform variable. The {@code i} variants of this
+     * function should be used to provide values for uniform variables defined as {@code int},
+     * {@code ivec2}, {@code ivec3}, {@code ivec4}, or arrays of these. The {@code ui} variants of
+     * this function should be used to provide values for uniform variables defined as
+     * {@code unsigned int}, {@code uvec2}, {@code uvec3}, {@code uvec4}, or arrays of these. The
+     * {@code f} variants should be used to provide values for uniform variables of type
+     * {@code float}, {@code vec2}, {@code vec3}, {@code vec4}, or arrays of these. Either the
+     * {@code i}, {@code ui}, or {@code f} variants may be used to provide values for uniform
+     * variables of type {@code bool}, {@code bvec2}, {@code bvec3}, {@code bvec4}, or arrays of
+     * these. The uniform variable will be set to {@code false} if the input variable is {@code 0}
+     * or {@code 0.0f}, and it will be set to {@code true} otherwise.
+     *
+     * <p>All active uniform variables defined in a program object are initialized to {@code 0} when
+     * the program object is linked successfully. They retain the values assigned to them by a call
+     * to {@code uniform} until the next successful link operation occurs on the program object,
+     * when they are once again initialized to {@code 0}.
+     *
+     * <p>The commands {@code uniformMatrix{2|3|4|2x3|3x2|2x4|4x2|3x4|4x3}f} are used to modify a
+     * matrix or an array of matrices. The numbers in the command name are interpreted as the
+     * dimensionality of the matrix. The number {@code 2} indicates a 2x2 matrix (i.e., 4 values),
+     * the number {@code 3} indicates a 3x3 matrix (i.e., 9 values), and the number {@code 4}
+     * indicates a 4x4 matrix (i.e., 16 values). Non-square matrix dimensionality is explicit, with
+     * the first number representing the number of columns and the second number representing the
+     * number of rows. For example, {@code 2x4} indicates a 2x4 matrix with 2 columns and 4 rows
+     * (i.e., 8 values).
+     *
+     * @param name  The name of the uniform variable to modify.
+     * @param value The desired value to use for the specified uniform variable.
+     */
+    public void uniform2ui(final String name, final Vector2i value) {
+        GL30.glUniform2ui(getUniformLocation(name), value.getX(), value.getY());
+    }
+
+    /**
+     * Modifies the value of a uniform variable or a uniform variable array. The name of the
+     * uniform variable to be modified is specified by the given name. It operates on the program
+     * object that was made part of the current state by calling {@link #use()}.
+     *
+     * <p>The commands {@code uniform{1|2|3|4}{f|i|ui}} are used to change the value of the uniform
+     * variable specified by the given name using the values passed as arguments. The number
+     * specified in the command should match the number of components in the data type of the
+     * specified uniform variable (e.g., {@code 1} for {@code float}, {@code int},
+     * {@code unsigned int}, {@code bool}; {@code 2} for {@code vec2}, {@code ivec2}, {@code uvec2},
+     * {@code bvec2}, etc.). The suffix {@code f} indicates that floating-point values are being
+     * passed; the suffix {@code i} indicates that integer values are being passed; the suffix
+     * {@code ui} indicates that unsigned integer values are being passed, and this type should also
+     * match the data type of the specified uniform variable. The {@code i} variants of this
+     * function should be used to provide values for uniform variables defined as {@code int},
+     * {@code ivec2}, {@code ivec3}, {@code ivec4}, or arrays of these. The {@code ui} variants of
+     * this function should be used to provide values for uniform variables defined as
+     * {@code unsigned int}, {@code uvec2}, {@code uvec3}, {@code uvec4}, or arrays of these. The
+     * {@code f} variants should be used to provide values for uniform variables of type
+     * {@code float}, {@code vec2}, {@code vec3}, {@code vec4}, or arrays of these. Either the
+     * {@code i}, {@code ui}, or {@code f} variants may be used to provide values for uniform
+     * variables of type {@code bool}, {@code bvec2}, {@code bvec3}, {@code bvec4}, or arrays of
+     * these. The uniform variable will be set to {@code false} if the input variable is {@code 0}
+     * or {@code 0.0f}, and it will be set to {@code true} otherwise.
+     *
+     * <p>All active uniform variables defined in a program object are initialized to {@code 0} when
+     * the program object is linked successfully. They retain the values assigned to them by a call
+     * to {@code uniform} until the next successful link operation occurs on the program object,
+     * when they are once again initialized to {@code 0}.
+     *
+     * <p>The commands {@code uniformMatrix{2|3|4|2x3|3x2|2x4|4x2|3x4|4x3}f} are used to modify a
+     * matrix or an array of matrices. The numbers in the command name are interpreted as the
+     * dimensionality of the matrix. The number {@code 2} indicates a 2x2 matrix (i.e., 4 values),
+     * the number {@code 3} indicates a 3x3 matrix (i.e., 9 values), and the number {@code 4}
+     * indicates a 4x4 matrix (i.e., 16 values). Non-square matrix dimensionality is explicit, with
+     * the first number representing the number of columns and the second number representing the
+     * number of rows. For example, {@code 2x4} indicates a 2x4 matrix with 2 columns and 4 rows
+     * (i.e., 8 values).
+     *
+     * @param name  The name of the uniform variable to modify.
+     * @param value The desired value to use for the specified uniform variable.
+     */
+    public void uniform3f(final String name, final Vector3f value) {
+        GL20.glUniform3f(getUniformLocation(name), value.getX(), value.getY(), value.getZ());
+    }
+
+    /**
+     * Modifies the value of a uniform variable or a uniform variable array. The name of the
+     * uniform variable to be modified is specified by the given name. It operates on the program
+     * object that was made part of the current state by calling {@link #use()}.
+     *
+     * <p>The commands {@code uniform{1|2|3|4}{f|i|ui}} are used to change the value of the uniform
+     * variable specified by the given name using the values passed as arguments. The number
+     * specified in the command should match the number of components in the data type of the
+     * specified uniform variable (e.g., {@code 1} for {@code float}, {@code int},
+     * {@code unsigned int}, {@code bool}; {@code 2} for {@code vec2}, {@code ivec2}, {@code uvec2},
+     * {@code bvec2}, etc.). The suffix {@code f} indicates that floating-point values are being
+     * passed; the suffix {@code i} indicates that integer values are being passed; the suffix
+     * {@code ui} indicates that unsigned integer values are being passed, and this type should also
+     * match the data type of the specified uniform variable. The {@code i} variants of this
+     * function should be used to provide values for uniform variables defined as {@code int},
+     * {@code ivec2}, {@code ivec3}, {@code ivec4}, or arrays of these. The {@code ui} variants of
+     * this function should be used to provide values for uniform variables defined as
+     * {@code unsigned int}, {@code uvec2}, {@code uvec3}, {@code uvec4}, or arrays of these. The
+     * {@code f} variants should be used to provide values for uniform variables of type
+     * {@code float}, {@code vec2}, {@code vec3}, {@code vec4}, or arrays of these. Either the
+     * {@code i}, {@code ui}, or {@code f} variants may be used to provide values for uniform
+     * variables of type {@code bool}, {@code bvec2}, {@code bvec3}, {@code bvec4}, or arrays of
+     * these. The uniform variable will be set to {@code false} if the input variable is {@code 0}
+     * or {@code 0.0f}, and it will be set to {@code true} otherwise.
+     *
+     * <p>All active uniform variables defined in a program object are initialized to {@code 0} when
+     * the program object is linked successfully. They retain the values assigned to them by a call
+     * to {@code uniform} until the next successful link operation occurs on the program object,
+     * when they are once again initialized to {@code 0}.
+     *
+     * <p>The commands {@code uniformMatrix{2|3|4|2x3|3x2|2x4|4x2|3x4|4x3}f} are used to modify a
+     * matrix or an array of matrices. The numbers in the command name are interpreted as the
+     * dimensionality of the matrix. The number {@code 2} indicates a 2x2 matrix (i.e., 4 values),
+     * the number {@code 3} indicates a 3x3 matrix (i.e., 9 values), and the number {@code 4}
+     * indicates a 4x4 matrix (i.e., 16 values). Non-square matrix dimensionality is explicit, with
+     * the first number representing the number of columns and the second number representing the
+     * number of rows. For example, {@code 2x4} indicates a 2x4 matrix with 2 columns and 4 rows
+     * (i.e., 8 values).
+     *
+     * @param name  The name of the uniform variable to modify.
+     * @param value The desired value to use for the specified uniform variable.
+     */
+    public void uniform3i(final String name, final Vector3i value) {
+        GL20.glUniform3i(getUniformLocation(name), value.getX(), value.getY(), value.getZ());
+    }
+
+    /**
+     * Modifies the value of a uniform variable or a uniform variable array. The name of the
+     * uniform variable to be modified is specified by the given name. It operates on the program
+     * object that was made part of the current state by calling {@link #use()}.
+     *
+     * <p>The commands {@code uniform{1|2|3|4}{f|i|ui}} are used to change the value of the uniform
+     * variable specified by the given name using the values passed as arguments. The number
+     * specified in the command should match the number of components in the data type of the
+     * specified uniform variable (e.g., {@code 1} for {@code float}, {@code int},
+     * {@code unsigned int}, {@code bool}; {@code 2} for {@code vec2}, {@code ivec2}, {@code uvec2},
+     * {@code bvec2}, etc.). The suffix {@code f} indicates that floating-point values are being
+     * passed; the suffix {@code i} indicates that integer values are being passed; the suffix
+     * {@code ui} indicates that unsigned integer values are being passed, and this type should also
+     * match the data type of the specified uniform variable. The {@code i} variants of this
+     * function should be used to provide values for uniform variables defined as {@code int},
+     * {@code ivec2}, {@code ivec3}, {@code ivec4}, or arrays of these. The {@code ui} variants of
+     * this function should be used to provide values for uniform variables defined as
+     * {@code unsigned int}, {@code uvec2}, {@code uvec3}, {@code uvec4}, or arrays of these. The
+     * {@code f} variants should be used to provide values for uniform variables of type
+     * {@code float}, {@code vec2}, {@code vec3}, {@code vec4}, or arrays of these. Either the
+     * {@code i}, {@code ui}, or {@code f} variants may be used to provide values for uniform
+     * variables of type {@code bool}, {@code bvec2}, {@code bvec3}, {@code bvec4}, or arrays of
+     * these. The uniform variable will be set to {@code false} if the input variable is {@code 0}
+     * or {@code 0.0f}, and it will be set to {@code true} otherwise.
+     *
+     * <p>All active uniform variables defined in a program object are initialized to {@code 0} when
+     * the program object is linked successfully. They retain the values assigned to them by a call
+     * to {@code uniform} until the next successful link operation occurs on the program object,
+     * when they are once again initialized to {@code 0}.
+     *
+     * <p>The commands {@code uniformMatrix{2|3|4|2x3|3x2|2x4|4x2|3x4|4x3}f} are used to modify a
+     * matrix or an array of matrices. The numbers in the command name are interpreted as the
+     * dimensionality of the matrix. The number {@code 2} indicates a 2x2 matrix (i.e., 4 values),
+     * the number {@code 3} indicates a 3x3 matrix (i.e., 9 values), and the number {@code 4}
+     * indicates a 4x4 matrix (i.e., 16 values). Non-square matrix dimensionality is explicit, with
+     * the first number representing the number of columns and the second number representing the
+     * number of rows. For example, {@code 2x4} indicates a 2x4 matrix with 2 columns and 4 rows
+     * (i.e., 8 values).
+     *
+     * @param name  The name of the uniform variable to modify.
+     * @param value The desired value to use for the specified uniform variable.
+     */
+    public void uniform3ui(final String name, final Vector3i value) {
+        GL30.glUniform3ui(getUniformLocation(name), value.getX(), value.getY(), value.getZ());
+    }
+
+    /**
+     * Modifies the value of a uniform variable or a uniform variable array. The name of the
+     * uniform variable to be modified is specified by the given name. It operates on the program
+     * object that was made part of the current state by calling {@link #use()}.
+     *
+     * <p>The commands {@code uniform{1|2|3|4}{f|i|ui}} are used to change the value of the uniform
+     * variable specified by the given name using the values passed as arguments. The number
+     * specified in the command should match the number of components in the data type of the
+     * specified uniform variable (e.g., {@code 1} for {@code float}, {@code int},
+     * {@code unsigned int}, {@code bool}; {@code 2} for {@code vec2}, {@code ivec2}, {@code uvec2},
+     * {@code bvec2}, etc.). The suffix {@code f} indicates that floating-point values are being
+     * passed; the suffix {@code i} indicates that integer values are being passed; the suffix
+     * {@code ui} indicates that unsigned integer values are being passed, and this type should also
+     * match the data type of the specified uniform variable. The {@code i} variants of this
+     * function should be used to provide values for uniform variables defined as {@code int},
+     * {@code ivec2}, {@code ivec3}, {@code ivec4}, or arrays of these. The {@code ui} variants of
+     * this function should be used to provide values for uniform variables defined as
+     * {@code unsigned int}, {@code uvec2}, {@code uvec3}, {@code uvec4}, or arrays of these. The
+     * {@code f} variants should be used to provide values for uniform variables of type
+     * {@code float}, {@code vec2}, {@code vec3}, {@code vec4}, or arrays of these. Either the
+     * {@code i}, {@code ui}, or {@code f} variants may be used to provide values for uniform
+     * variables of type {@code bool}, {@code bvec2}, {@code bvec3}, {@code bvec4}, or arrays of
+     * these. The uniform variable will be set to {@code false} if the input variable is {@code 0}
+     * or {@code 0.0f}, and it will be set to {@code true} otherwise.
+     *
+     * <p>All active uniform variables defined in a program object are initialized to {@code 0} when
+     * the program object is linked successfully. They retain the values assigned to them by a call
+     * to {@code uniform} until the next successful link operation occurs on the program object,
+     * when they are once again initialized to {@code 0}.
+     *
+     * <p>The commands {@code uniformMatrix{2|3|4|2x3|3x2|2x4|4x2|3x4|4x3}f} are used to modify a
+     * matrix or an array of matrices. The numbers in the command name are interpreted as the
+     * dimensionality of the matrix. The number {@code 2} indicates a 2x2 matrix (i.e., 4 values),
+     * the number {@code 3} indicates a 3x3 matrix (i.e., 9 values), and the number {@code 4}
+     * indicates a 4x4 matrix (i.e., 16 values). Non-square matrix dimensionality is explicit, with
+     * the first number representing the number of columns and the second number representing the
+     * number of rows. For example, {@code 2x4} indicates a 2x4 matrix with 2 columns and 4 rows
+     * (i.e., 8 values).
+     *
+     * @param name  The name of the uniform variable to modify.
+     * @param value The desired value to use for the specified uniform variable.
+     */
+    public void uniform4f(final String name, final Vector4f value) {
+        GL20.glUniform4f(getUniformLocation(name), value.getX(), value.getY(), value.getZ(),
+                value.getW());
+    }
+
+    /**
+     * Modifies the value of a uniform variable or a uniform variable array. The name of the
+     * uniform variable to be modified is specified by the given name. It operates on the program
+     * object that was made part of the current state by calling {@link #use()}.
+     *
+     * <p>The commands {@code uniform{1|2|3|4}{f|i|ui}} are used to change the value of the uniform
+     * variable specified by the given name using the values passed as arguments. The number
+     * specified in the command should match the number of components in the data type of the
+     * specified uniform variable (e.g., {@code 1} for {@code float}, {@code int},
+     * {@code unsigned int}, {@code bool}; {@code 2} for {@code vec2}, {@code ivec2}, {@code uvec2},
+     * {@code bvec2}, etc.). The suffix {@code f} indicates that floating-point values are being
+     * passed; the suffix {@code i} indicates that integer values are being passed; the suffix
+     * {@code ui} indicates that unsigned integer values are being passed, and this type should also
+     * match the data type of the specified uniform variable. The {@code i} variants of this
+     * function should be used to provide values for uniform variables defined as {@code int},
+     * {@code ivec2}, {@code ivec3}, {@code ivec4}, or arrays of these. The {@code ui} variants of
+     * this function should be used to provide values for uniform variables defined as
+     * {@code unsigned int}, {@code uvec2}, {@code uvec3}, {@code uvec4}, or arrays of these. The
+     * {@code f} variants should be used to provide values for uniform variables of type
+     * {@code float}, {@code vec2}, {@code vec3}, {@code vec4}, or arrays of these. Either the
+     * {@code i}, {@code ui}, or {@code f} variants may be used to provide values for uniform
+     * variables of type {@code bool}, {@code bvec2}, {@code bvec3}, {@code bvec4}, or arrays of
+     * these. The uniform variable will be set to {@code false} if the input variable is {@code 0}
+     * or {@code 0.0f}, and it will be set to {@code true} otherwise.
+     *
+     * <p>All active uniform variables defined in a program object are initialized to {@code 0} when
+     * the program object is linked successfully. They retain the values assigned to them by a call
+     * to {@code uniform} until the next successful link operation occurs on the program object,
+     * when they are once again initialized to {@code 0}.
+     *
+     * <p>The commands {@code uniformMatrix{2|3|4|2x3|3x2|2x4|4x2|3x4|4x3}f} are used to modify a
+     * matrix or an array of matrices. The numbers in the command name are interpreted as the
+     * dimensionality of the matrix. The number {@code 2} indicates a 2x2 matrix (i.e., 4 values),
+     * the number {@code 3} indicates a 3x3 matrix (i.e., 9 values), and the number {@code 4}
+     * indicates a 4x4 matrix (i.e., 16 values). Non-square matrix dimensionality is explicit, with
+     * the first number representing the number of columns and the second number representing the
+     * number of rows. For example, {@code 2x4} indicates a 2x4 matrix with 2 columns and 4 rows
+     * (i.e., 8 values).
+     *
+     * @param name  The name of the uniform variable to modify.
+     * @param value The desired value to use for the specified uniform variable.
+     */
+    public void uniform4i(final String name, final Vector4i value) {
+        GL20.glUniform4i(getUniformLocation(name), value.getX(), value.getY(), value.getZ(),
+                value.getW());
+    }
+
+    /**
+     * Modifies the value of a uniform variable or a uniform variable array. The name of the
+     * uniform variable to be modified is specified by the given name. It operates on the program
+     * object that was made part of the current state by calling {@link #use()}.
+     *
+     * <p>The commands {@code uniform{1|2|3|4}{f|i|ui}} are used to change the value of the uniform
+     * variable specified by the given name using the values passed as arguments. The number
+     * specified in the command should match the number of components in the data type of the
+     * specified uniform variable (e.g., {@code 1} for {@code float}, {@code int},
+     * {@code unsigned int}, {@code bool}; {@code 2} for {@code vec2}, {@code ivec2}, {@code uvec2},
+     * {@code bvec2}, etc.). The suffix {@code f} indicates that floating-point values are being
+     * passed; the suffix {@code i} indicates that integer values are being passed; the suffix
+     * {@code ui} indicates that unsigned integer values are being passed, and this type should also
+     * match the data type of the specified uniform variable. The {@code i} variants of this
+     * function should be used to provide values for uniform variables defined as {@code int},
+     * {@code ivec2}, {@code ivec3}, {@code ivec4}, or arrays of these. The {@code ui} variants of
+     * this function should be used to provide values for uniform variables defined as
+     * {@code unsigned int}, {@code uvec2}, {@code uvec3}, {@code uvec4}, or arrays of these. The
+     * {@code f} variants should be used to provide values for uniform variables of type
+     * {@code float}, {@code vec2}, {@code vec3}, {@code vec4}, or arrays of these. Either the
+     * {@code i}, {@code ui}, or {@code f} variants may be used to provide values for uniform
+     * variables of type {@code bool}, {@code bvec2}, {@code bvec3}, {@code bvec4}, or arrays of
+     * these. The uniform variable will be set to {@code false} if the input variable is {@code 0}
+     * or {@code 0.0f}, and it will be set to {@code true} otherwise.
+     *
+     * <p>All active uniform variables defined in a program object are initialized to {@code 0} when
+     * the program object is linked successfully. They retain the values assigned to them by a call
+     * to {@code uniform} until the next successful link operation occurs on the program object,
+     * when they are once again initialized to {@code 0}.
+     *
+     * <p>The commands {@code uniformMatrix{2|3|4|2x3|3x2|2x4|4x2|3x4|4x3}f} are used to modify a
+     * matrix or an array of matrices. The numbers in the command name are interpreted as the
+     * dimensionality of the matrix. The number {@code 2} indicates a 2x2 matrix (i.e., 4 values),
+     * the number {@code 3} indicates a 3x3 matrix (i.e., 9 values), and the number {@code 4}
+     * indicates a 4x4 matrix (i.e., 16 values). Non-square matrix dimensionality is explicit, with
+     * the first number representing the number of columns and the second number representing the
+     * number of rows. For example, {@code 2x4} indicates a 2x4 matrix with 2 columns and 4 rows
+     * (i.e., 8 values).
+     *
+     * @param name  The name of the uniform variable to modify.
+     * @param value The desired value to use for the specified uniform variable.
+     */
+    public void uniform4ui(final String name, final Vector4i value) {
+        GL30.glUniform4ui(getUniformLocation(name), value.getX(), value.getY(), value.getZ(),
+                value.getW());
+    }
+
+    /**
+     * Modifies the value of a uniform variable or a uniform variable array. The name of the
+     * uniform variable to be modified is specified by the given name. It operates on the program
+     * object that was made part of the current state by calling {@link #use()}.
+     *
+     * <p>The commands {@code uniform{1|2|3|4}{f|i|ui}} are used to change the value of the uniform
+     * variable specified by the given name using the values passed as arguments. The number
+     * specified in the command should match the number of components in the data type of the
+     * specified uniform variable (e.g., {@code 1} for {@code float}, {@code int},
+     * {@code unsigned int}, {@code bool}; {@code 2} for {@code vec2}, {@code ivec2}, {@code uvec2},
+     * {@code bvec2}, etc.). The suffix {@code f} indicates that floating-point values are being
+     * passed; the suffix {@code i} indicates that integer values are being passed; the suffix
+     * {@code ui} indicates that unsigned integer values are being passed, and this type should also
+     * match the data type of the specified uniform variable. The {@code i} variants of this
+     * function should be used to provide values for uniform variables defined as {@code int},
+     * {@code ivec2}, {@code ivec3}, {@code ivec4}, or arrays of these. The {@code ui} variants of
+     * this function should be used to provide values for uniform variables defined as
+     * {@code unsigned int}, {@code uvec2}, {@code uvec3}, {@code uvec4}, or arrays of these. The
+     * {@code f} variants should be used to provide values for uniform variables of type
+     * {@code float}, {@code vec2}, {@code vec3}, {@code vec4}, or arrays of these. Either the
+     * {@code i}, {@code ui}, or {@code f} variants may be used to provide values for uniform
+     * variables of type {@code bool}, {@code bvec2}, {@code bvec3}, {@code bvec4}, or arrays of
+     * these. The uniform variable will be set to {@code false} if the input variable is {@code 0}
+     * or {@code 0.0f}, and it will be set to {@code true} otherwise.
+     *
+     * <p>All active uniform variables defined in a program object are initialized to {@code 0} when
+     * the program object is linked successfully. They retain the values assigned to them by a call
+     * to {@code uniform} until the next successful link operation occurs on the program object,
+     * when they are once again initialized to {@code 0}.
+     *
+     * <p>The commands {@code uniformMatrix{2|3|4|2x3|3x2|2x4|4x2|3x4|4x3}f} are used to modify a
+     * matrix or an array of matrices. The numbers in the command name are interpreted as the
+     * dimensionality of the matrix. The number {@code 2} indicates a 2x2 matrix (i.e., 4 values),
+     * the number {@code 3} indicates a 3x3 matrix (i.e., 9 values), and the number {@code 4}
+     * indicates a 4x4 matrix (i.e., 16 values). Non-square matrix dimensionality is explicit, with
+     * the first number representing the number of columns and the second number representing the
+     * number of rows. For example, {@code 2x4} indicates a 2x4 matrix with 2 columns and 4 rows
+     * (i.e., 8 values).
+     *
+     * @param name  The name of the uniform variable to modify.
+     * @param value The desired value to use for the specified uniform variable.
+     */
+    public void uniformMatrix2f(final String name, final Matrix2f value) {
+        GL20.glUniformMatrix2fv(getUniformLocation(name), false, value.toArray());
+    }
+
+    /**
+     * Modifies the value of a uniform variable or a uniform variable array. The name of the
+     * uniform variable to be modified is specified by the given name. It operates on the program
+     * object that was made part of the current state by calling {@link #use()}.
+     *
+     * <p>The commands {@code uniform{1|2|3|4}{f|i|ui}} are used to change the value of the uniform
+     * variable specified by the given name using the values passed as arguments. The number
+     * specified in the command should match the number of components in the data type of the
+     * specified uniform variable (e.g., {@code 1} for {@code float}, {@code int},
+     * {@code unsigned int}, {@code bool}; {@code 2} for {@code vec2}, {@code ivec2}, {@code uvec2},
+     * {@code bvec2}, etc.). The suffix {@code f} indicates that floating-point values are being
+     * passed; the suffix {@code i} indicates that integer values are being passed; the suffix
+     * {@code ui} indicates that unsigned integer values are being passed, and this type should also
+     * match the data type of the specified uniform variable. The {@code i} variants of this
+     * function should be used to provide values for uniform variables defined as {@code int},
+     * {@code ivec2}, {@code ivec3}, {@code ivec4}, or arrays of these. The {@code ui} variants of
+     * this function should be used to provide values for uniform variables defined as
+     * {@code unsigned int}, {@code uvec2}, {@code uvec3}, {@code uvec4}, or arrays of these. The
+     * {@code f} variants should be used to provide values for uniform variables of type
+     * {@code float}, {@code vec2}, {@code vec3}, {@code vec4}, or arrays of these. Either the
+     * {@code i}, {@code ui}, or {@code f} variants may be used to provide values for uniform
+     * variables of type {@code bool}, {@code bvec2}, {@code bvec3}, {@code bvec4}, or arrays of
+     * these. The uniform variable will be set to {@code false} if the input variable is {@code 0}
+     * or {@code 0.0f}, and it will be set to {@code true} otherwise.
+     *
+     * <p>All active uniform variables defined in a program object are initialized to {@code 0} when
+     * the program object is linked successfully. They retain the values assigned to them by a call
+     * to {@code uniform} until the next successful link operation occurs on the program object,
+     * when they are once again initialized to {@code 0}.
+     *
+     * <p>The commands {@code uniformMatrix{2|3|4|2x3|3x2|2x4|4x2|3x4|4x3}f} are used to modify a
+     * matrix or an array of matrices. The numbers in the command name are interpreted as the
+     * dimensionality of the matrix. The number {@code 2} indicates a 2x2 matrix (i.e., 4 values),
+     * the number {@code 3} indicates a 3x3 matrix (i.e., 9 values), and the number {@code 4}
+     * indicates a 4x4 matrix (i.e., 16 values). Non-square matrix dimensionality is explicit, with
+     * the first number representing the number of columns and the second number representing the
+     * number of rows. For example, {@code 2x4} indicates a 2x4 matrix with 2 columns and 4 rows
+     * (i.e., 8 values).
+     *
+     * @param name  The name of the uniform variable to modify.
+     * @param value The desired value to use for the specified uniform variable.
+     */
+    public void uniformMatrix3f(final String name, final Matrix3f value) {
+        GL30.glUniformMatrix3fv(getUniformLocation(name), false, value.toArray());
+    }
+
+    /**
+     * Modifies the value of a uniform variable or a uniform variable array. The name of the
+     * uniform variable to be modified is specified by the given name. It operates on the program
+     * object that was made part of the current state by calling {@link #use()}.
+     *
+     * <p>The commands {@code uniform{1|2|3|4}{f|i|ui}} are used to change the value of the uniform
+     * variable specified by the given name using the values passed as arguments. The number
+     * specified in the command should match the number of components in the data type of the
+     * specified uniform variable (e.g., {@code 1} for {@code float}, {@code int},
+     * {@code unsigned int}, {@code bool}; {@code 2} for {@code vec2}, {@code ivec2}, {@code uvec2},
+     * {@code bvec2}, etc.). The suffix {@code f} indicates that floating-point values are being
+     * passed; the suffix {@code i} indicates that integer values are being passed; the suffix
+     * {@code ui} indicates that unsigned integer values are being passed, and this type should also
+     * match the data type of the specified uniform variable. The {@code i} variants of this
+     * function should be used to provide values for uniform variables defined as {@code int},
+     * {@code ivec2}, {@code ivec3}, {@code ivec4}, or arrays of these. The {@code ui} variants of
+     * this function should be used to provide values for uniform variables defined as
+     * {@code unsigned int}, {@code uvec2}, {@code uvec3}, {@code uvec4}, or arrays of these. The
+     * {@code f} variants should be used to provide values for uniform variables of type
+     * {@code float}, {@code vec2}, {@code vec3}, {@code vec4}, or arrays of these. Either the
+     * {@code i}, {@code ui}, or {@code f} variants may be used to provide values for uniform
+     * variables of type {@code bool}, {@code bvec2}, {@code bvec3}, {@code bvec4}, or arrays of
+     * these. The uniform variable will be set to {@code false} if the input variable is {@code 0}
+     * or {@code 0.0f}, and it will be set to {@code true} otherwise.
+     *
+     * <p>All active uniform variables defined in a program object are initialized to {@code 0} when
+     * the program object is linked successfully. They retain the values assigned to them by a call
+     * to {@code uniform} until the next successful link operation occurs on the program object,
+     * when they are once again initialized to {@code 0}.
+     *
+     * <p>The commands {@code uniformMatrix{2|3|4|2x3|3x2|2x4|4x2|3x4|4x3}f} are used to modify a
+     * matrix or an array of matrices. The numbers in the command name are interpreted as the
+     * dimensionality of the matrix. The number {@code 2} indicates a 2x2 matrix (i.e., 4 values),
+     * the number {@code 3} indicates a 3x3 matrix (i.e., 9 values), and the number {@code 4}
+     * indicates a 4x4 matrix (i.e., 16 values). Non-square matrix dimensionality is explicit, with
+     * the first number representing the number of columns and the second number representing the
+     * number of rows. For example, {@code 2x4} indicates a 2x4 matrix with 2 columns and 4 rows
+     * (i.e., 8 values).
+     *
+     * @param name  The name of the uniform variable to modify.
+     * @param value The desired value to use for the specified uniform variable.
+     */
+    public void uniformMatrix4f(final String name, final Matrix4f value) {
+        GL30.glUniformMatrix4fv(getUniformLocation(name), false, value.toArray());
     }
 
     /**
