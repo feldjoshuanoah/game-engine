@@ -3,7 +3,6 @@ package com.feldjoshuanoah.gameengine.entity;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +14,7 @@ public class Entity {
     /**
      * The components.
      */
-    private final List<AbstractComponent> components;
+    private final List<Component> components;
 
     /**
      * Creates a new {@code Entity} instance.
@@ -31,7 +30,7 @@ public class Entity {
      * @return       The component.
      * @param  <T>   The component type.
      */
-    public <T extends AbstractComponent> Optional<T> getComponent(final Class<T> clazz) {
+    public <T extends Component> Optional<T> getComponent(final Class<T> clazz) {
         return components.stream().filter(component -> clazz.isAssignableFrom(component.getClass()))
                 .findFirst().map(clazz::cast);
     }
@@ -44,7 +43,7 @@ public class Entity {
      * @return       {@code true} if the entity has a component with the given class.
      * @param  <T>   The component type.
      */
-    public <T extends AbstractComponent> boolean hasComponent(final Class<T> clazz) {
+    public <T extends Component> boolean hasComponent(final Class<T> clazz) {
         return components.stream().anyMatch(component -> clazz.isAssignableFrom(component
                 .getClass()));
     }
@@ -54,7 +53,7 @@ public class Entity {
      *
      * @param component The component to add.
      */
-    public void addComponent(final AbstractComponent component) {
+    public void addComponent(final Component component) {
         Preconditions.checkArgument(component != null);
         if (!hasComponent(component.getClass())) {
             components.add(component);
@@ -67,7 +66,7 @@ public class Entity {
      * @param clazz The class of the component to remove.
      * @param <T>   The component type.
      */
-    public <T extends AbstractComponent> void removeComponent(final Class<T> clazz) {
+    public <T extends Component> void removeComponent(final Class<T> clazz) {
         components.stream().filter(component -> clazz.isAssignableFrom(component.getClass()))
                 .findFirst().ifPresent(components::remove);
     }
@@ -77,7 +76,7 @@ public class Entity {
      *
      * @return The components.
      */
-    public List<AbstractComponent> getComponents() {
+    public List<Component> getComponents() {
         return List.copyOf(components);
     }
 }

@@ -66,8 +66,8 @@ public class Vector3f {
      *
      * @param components The desired values of the components.
      */
-    public Vector3f(final float[] components) {
-        float[] fitted = Arrays.copyOf(components, 3);
+    public Vector3f(final float... components) {
+        final float[] fitted = Arrays.copyOf(components, 3);
         this.x = fitted[0];
         this.y = fitted[1];
         this.z = fitted[2];

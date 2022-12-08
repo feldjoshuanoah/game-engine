@@ -67,7 +67,7 @@ public class Vector3i {
      *
      * @param components The desired values of the components.
      */
-    public Vector3i(final int[] components) {
+    public Vector3i(final int... components) {
         final int[] fitted = Arrays.copyOf(components, 3);
         x = fitted[0];
         y = fitted[1];

@@ -59,8 +59,8 @@ public class Vector2i {
      *
      * @param components The desired values of the components.
      */
-    public Vector2i(final int[] components) {
-        int[] fitted = Arrays.copyOf(components, 2);
+    public Vector2i(final int... components) {
+        final int[] fitted = Arrays.copyOf(components, 2);
         x = fitted[0];
         y = fitted[1];
     }

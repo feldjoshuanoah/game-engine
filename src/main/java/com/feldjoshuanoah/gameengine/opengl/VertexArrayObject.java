@@ -26,6 +26,13 @@ public class VertexArrayObject implements OpenGLObject {
     private int vertexAttribs;
 
     /**
+     * Creates a new {@code VertexArrayObject} instance.
+     */
+    public VertexArrayObject() {
+        super();
+    }
+
+    /**
      * Generates a vertex array object name. It is guaranteed that the generated name was not in use
      * immediately before the call to {@code generate()}. The generated name is marked as used, for
      * the purposes of {@code generate()} only, but they acquire state and type only when they are
@@ -68,7 +75,7 @@ public class VertexArrayObject implements OpenGLObject {
      *
      * @param layout The layout for all generic vertex attribute arrays.
      */
-    public void setVertexAttribLayout(final GLSLDataType[] layout) {
+    public void setVertexAttribLayout(final GLSLDataType... layout) {
         vertexAttribs = layout.length;
         IntStream.range(0, vertexAttribs).forEach(i -> GL20.glVertexAttribPointer(i, layout[i]
                 .getSize(), layout[i].getType(), false, Arrays.stream(layout)

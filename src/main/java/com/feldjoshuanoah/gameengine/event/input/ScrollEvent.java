@@ -1,12 +1,12 @@
 package com.feldjoshuanoah.gameengine.event.input;
 
-import com.feldjoshuanoah.gameengine.event.AbstractEvent;
+import com.feldjoshuanoah.gameengine.event.Event;
 
 /**
  * A scroll event. It is fired when a scrolling device is used, such as a mouse wheel or scrolling
  * area of a touchpad.
  */
-public class ScrollEvent extends AbstractEvent {
+public class ScrollEvent extends Event {
 
     /**
      * The scroll offset along the x-axis.

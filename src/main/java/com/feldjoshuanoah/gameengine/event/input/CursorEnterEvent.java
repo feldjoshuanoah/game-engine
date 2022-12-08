@@ -1,13 +1,12 @@
 package com.feldjoshuanoah.gameengine.event.input;
 
-import com.feldjoshuanoah.gameengine.event.AbstractEvent;
-import org.lwjgl.glfw.GLFW;
+import com.feldjoshuanoah.gameengine.event.Event;
 
 /**
  * A cursor enter event. It is fired when the cursor enters or leaves the content area of the
  * window.
  */
-public class CursorEnterEvent extends AbstractEvent {
+public class CursorEnterEvent extends Event {
 
     /**
      * {@code true} if the cursor entered the window's content area, or {@code false} if it left it.

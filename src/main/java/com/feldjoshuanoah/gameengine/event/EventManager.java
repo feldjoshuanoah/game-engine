@@ -8,8 +8,6 @@ import com.google.common.collect.Maps;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +47,7 @@ public final class EventManager {
      *
      * @param event The event to fire.
      */
-    public void fire(final AbstractEvent event) {
+    public void fire(final Event event) {
         fire(event, NullEntity.getInstance());
     }
 
@@ -59,7 +57,7 @@ public final class EventManager {
      * @param event The event to fire.
      * @param entity The target entity.
      */
-    public void fire(final AbstractEvent event, final Entity entity) {
+    public void fire(final Event event, final Entity entity) {
         for (final RegisteredEventHandler handler : handlers) {
             for (final Method receiver : handler.getReceivers().stream().filter(receiver ->
                     receiver.getParameterTypes()[0].isAssignableFrom(event.getClass())

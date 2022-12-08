@@ -23,8 +23,14 @@ public class RegisteredEventHandler {
      */
     private final List<Method> receivers;
 
+    /**
+     * The event handlers to process afterwards.
+     */
     private final List<Class<? extends EventHandler>> before;
 
+    /**
+     * The event handlers to process before.
+     */
     private final List<Class<? extends EventHandler>> after;
 
     /**
@@ -38,7 +44,7 @@ public class RegisteredEventHandler {
                 .filter(method -> Modifier.isPublic(method.getModifiers())
                         && method.isAnnotationPresent(ReceiveEvent.class)
                         && method.getReturnType().equals(EventResult.class)
-                        && AbstractEvent.class.isAssignableFrom(method.getParameterTypes()[0])
+                        && Event.class.isAssignableFrom(method.getParameterTypes()[0])
                         && Entity.class.isAssignableFrom(method.getParameterTypes()[1])).toList();
         before = handler.getClass().isAnnotationPresent(Before.class) ? Arrays.stream(handler
                 .getClass().getAnnotation(Before.class).value()).toList() : Lists.newArrayList();

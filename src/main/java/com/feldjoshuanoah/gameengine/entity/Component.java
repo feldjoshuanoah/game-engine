@@ -3,11 +3,11 @@ package com.feldjoshuanoah.gameengine.entity;
 /**
  * A component of an entity.
  */
-public abstract class AbstractComponent {
+public class Component {
 
     /**
      * Creates a new {@code AbstractComponent} instance.
      */
-    public AbstractComponent() {
+    public Component() {
     }
 }

@@ -1,6 +1,5 @@
 package com.feldjoshuanoah.gameengine.opengl.buffer;
 
-import com.feldjoshuanoah.gameengine.opengl.buffer.BufferObject;
 import org.lwjgl.opengl.GL15;
 
 /**

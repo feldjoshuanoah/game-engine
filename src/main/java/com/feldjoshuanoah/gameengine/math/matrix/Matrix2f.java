@@ -232,22 +232,7 @@ public class Matrix2f {
      * @return        The value of the component.
      */
     public float get(final int column, final int row) {
-        float value = 0;
-        switch (column) {
-            case 0 -> {
-                switch (row) {
-                    case 0 -> value = m00;
-                    case 1 -> value = m01;
-                }
-            }
-            case 1 -> {
-                switch (row) {
-                    case 0 -> value = m10;
-                    case 1 -> value = m11;
-                }
-            }
-        }
-        return value;
+        return column == 0 ? row == 0 ? m00 : m01 : row == 0 ? m10 : m11;
     }
 
     /**
@@ -258,18 +243,17 @@ public class Matrix2f {
      * @param value  The desired value of the component.
      */
     public void set(final int column, final int row, final float value) {
-        switch (column) {
-            case 0 -> {
-                switch (row) {
-                    case 0 -> m00 = value;
-                    case 1 -> m01 = value;
-                }
+        if (column == 0) {
+            if (row == 0) {
+                m00 = value;
+            } else {
+                m01 = value;
             }
-            case 1 -> {
-                switch (row) {
-                    case 0 -> m10 = value;
-                    case 1 -> m11 = value;
-                }
+        } else {
+            if (row == 0) {
+                m10 = value;
+            } else {
+                m11 = value;
             }
         }
     }

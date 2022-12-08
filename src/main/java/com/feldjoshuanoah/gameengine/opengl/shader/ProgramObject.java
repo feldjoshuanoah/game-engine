@@ -3,7 +3,12 @@ package com.feldjoshuanoah.gameengine.opengl.shader;
 import com.feldjoshuanoah.gameengine.math.matrix.Matrix2f;
 import com.feldjoshuanoah.gameengine.math.matrix.Matrix3f;
 import com.feldjoshuanoah.gameengine.math.matrix.Matrix4f;
-import com.feldjoshuanoah.gameengine.math.vector.*;
+import com.feldjoshuanoah.gameengine.math.vector.Vector2f;
+import com.feldjoshuanoah.gameengine.math.vector.Vector2i;
+import com.feldjoshuanoah.gameengine.math.vector.Vector3f;
+import com.feldjoshuanoah.gameengine.math.vector.Vector3i;
+import com.feldjoshuanoah.gameengine.math.vector.Vector4f;
+import com.feldjoshuanoah.gameengine.math.vector.Vector4i;
 import com.feldjoshuanoah.gameengine.opengl.GLSLObject;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
@@ -28,6 +33,13 @@ public class ProgramObject implements GLSLObject {
      * The program object name.
      */
     private int name;
+
+    /**
+     * Creates a new {@code ProgramObject} instance.
+     */
+    public ProgramObject() {
+        super();
+    }
 
     /**
      * Creates an empty program object and sets the name by which it can be referenced.

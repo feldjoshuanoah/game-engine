@@ -1,6 +1,6 @@
 package com.feldjoshuanoah.gameengine.event;
 
-import com.feldjoshuanoah.gameengine.entity.AbstractComponent;
+import com.feldjoshuanoah.gameengine.entity.Component;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -19,5 +19,5 @@ public @interface ReceiveEvent {
      *
      * @return The components that the target entity of the event must have.
      */
-    Class<? extends AbstractComponent>[] components() default {};
+    Class<? extends Component>[] components() default {};
 }

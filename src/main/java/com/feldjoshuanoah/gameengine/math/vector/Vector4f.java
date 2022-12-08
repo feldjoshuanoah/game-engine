@@ -74,7 +74,7 @@ public class Vector4f {
      *
      * @param components The desired values of the components.
      */
-    public Vector4f(final float[] components) {
+    public Vector4f(final float... components) {
         final float[] fitted = Arrays.copyOf(components, 4);
         x = fitted[0];
         y = fitted[1];

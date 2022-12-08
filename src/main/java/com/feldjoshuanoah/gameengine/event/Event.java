@@ -1,11 +1,11 @@
 package com.feldjoshuanoah.gameengine.event;
 
-import com.feldjoshuanoah.gameengine.opengl.Window;
+import com.feldjoshuanoah.gameengine.glfw.Window;
 
 /**
  * An event.
  */
-public abstract class AbstractEvent {
+public class Event {
 
     /**
      * The window that received the event.
@@ -17,7 +17,7 @@ public abstract class AbstractEvent {
      *
      * @param window The window that received the event.
      */
-    public AbstractEvent(final long window) {
+    public Event(final long window) {
         this.window = Window.getWindow(window);
     }
 

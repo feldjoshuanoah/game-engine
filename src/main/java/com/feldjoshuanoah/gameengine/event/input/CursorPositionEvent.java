@@ -1,11 +1,11 @@
 package com.feldjoshuanoah.gameengine.event.input;
 
-import com.feldjoshuanoah.gameengine.event.AbstractEvent;
+import com.feldjoshuanoah.gameengine.event.Event;
 
 /**
  * A cursor position event. It is fired when the cursor is moved.
  */
-public final class CursorPositionEvent extends AbstractEvent {
+public final class CursorPositionEvent extends Event {
 
     /**
      * The new cursor x-coordinate, relative to the left edge of the content area.

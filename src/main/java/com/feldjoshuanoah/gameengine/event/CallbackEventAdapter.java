@@ -1,6 +1,10 @@
 package com.feldjoshuanoah.gameengine.event;
 
-import com.feldjoshuanoah.gameengine.event.input.*;
+import com.feldjoshuanoah.gameengine.event.input.CursorEnterEvent;
+import com.feldjoshuanoah.gameengine.event.input.CursorPositionEvent;
+import com.feldjoshuanoah.gameengine.event.input.KeyEvent;
+import com.feldjoshuanoah.gameengine.event.input.MouseButtonEvent;
+import com.feldjoshuanoah.gameengine.event.input.ScrollEvent;
 import org.lwjgl.glfw.GLFW;
 
 /**

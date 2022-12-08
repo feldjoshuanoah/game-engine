@@ -1,12 +1,12 @@
 package com.feldjoshuanoah.gameengine.event.input;
 
-import com.feldjoshuanoah.gameengine.event.AbstractEvent;
+import com.feldjoshuanoah.gameengine.event.Event;
 import org.lwjgl.glfw.GLFW;
 
 /**
  * A key event. It is fired when a key is pressed, held, or released.
  */
-public final class KeyEvent extends AbstractEvent {
+public final class KeyEvent extends Event {
 
     /**
      * The keyboard key that was pressed, held, or released.

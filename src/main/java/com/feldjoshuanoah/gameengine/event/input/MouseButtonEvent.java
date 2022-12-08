@@ -1,12 +1,12 @@
 package com.feldjoshuanoah.gameengine.event.input;
 
-import com.feldjoshuanoah.gameengine.event.AbstractEvent;
+import com.feldjoshuanoah.gameengine.event.Event;
 import org.lwjgl.glfw.GLFW;
 
 /**
  * A button event. It is fired when a button is pressed or released.
  */
-public final class MouseButtonEvent extends AbstractEvent {
+public final class MouseButtonEvent extends Event {
 
     /**
      * The mouse button that was pressed or released.
