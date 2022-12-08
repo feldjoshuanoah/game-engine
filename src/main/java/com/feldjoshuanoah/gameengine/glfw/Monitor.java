@@ -1,4 +1,4 @@
-package com.feldjoshuanoah.gameengine.opengl;
+package com.feldjoshuanoah.gameengine.glfw;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;

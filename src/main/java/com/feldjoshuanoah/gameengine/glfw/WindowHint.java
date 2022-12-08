@@ -1,6 +1,5 @@
-package com.feldjoshuanoah.gameengine.opengl;
+package com.feldjoshuanoah.gameengine.glfw;
 
-import com.feldjoshuanoah.gameengine.opengl.Window;
 import org.lwjgl.glfw.GLFW;
 
 /**

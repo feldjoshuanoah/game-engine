@@ -1,4 +1,4 @@
-package com.feldjoshuanoah.gameengine.opengl;
+package com.feldjoshuanoah.gameengine.glfw;
 
 import com.feldjoshuanoah.gameengine.event.CallbackEventAdapter;
 import java.nio.IntBuffer;
